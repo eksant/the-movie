@@ -1,0 +1,35 @@
+@import '~@/styles/vars.less';
+
+.header {
+  z-index: 1;
+  width: 100%;
+  position: fixed;
+  padding: 0 64px;
+  background: #1f618d;
+
+  &-logo {
+    height: 64px;
+    // width: 120px;
+    display: table-cell;
+    vertical-align: middle;
+    // margin-right: 24px;
+
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      margin: auto auto;
+    }
+  }
+
+  &-menu-left {
+    margin-left: 20px;
+  }
+
+  &-menu-right {
+    text-align-last: right;
+  }
+
+  .ant-card-meta-title {
+    margin-bottom: 0;
+  }
+}

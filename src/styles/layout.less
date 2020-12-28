@@ -1,0 +1,50 @@
+@import '~@/styles/vars.less';
+
+.container {
+  height: 100vh;
+}
+
+.ant-layout * {
+  box-sizing: border-box;
+}
+
+.ant-layout {
+  height: 100%;
+  flex: auto;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  background-color: @grey;
+}
+
+.ant-layout.ant-layout-has-sider {
+  flex-direction: row;
+}
+
+// .ant-layout-header {
+//   padding: 0 24px;
+//   line-height: 62px;
+//   background: white;
+//   box-shadow: @base-box-shadow;
+// }
+
+.ant-layout-header {
+  flex: none;
+  padding: 0 24px;
+  line-height: 62px;
+  background-color: white;
+  box-shadow: @base-box-shadow;
+}
+
+.ant-layout-sider {
+  flex: none;
+  overflow-y: auto;
+  // background-color: #6666ff;
+}
+
+.ant-layout-content {
+  flex: auto;
+  overflow: auto;
+  padding: 0 24px 32px;
+  /*   min-height: 0; */
+}

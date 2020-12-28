@@ -1,0 +1,53 @@
+@import './default.less';
+
+.red-color {
+  color: @red;
+}
+
+.green-color {
+  color: @green;
+}
+
+.base-card {
+  border-radius: 10px;
+  box-shadow: @card-box-shadow;
+}
+
+.base-auth-card {
+  .base-card;
+  background: #f7fafc;
+}
+
+.brand-background {
+  // background-color: #f37335;
+  background-image: linear-gradient(290deg, #f37335 0%, #fdc830 100%);
+}
+
+.dot-background {
+  // background-image: url('~@lisensia/assets/images/bg-dot-grid.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.social-auth-btn {
+  font-size: 13px;
+  color: @text-color;
+  background: @white;
+  box-shadow: @base-box-shadow;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: @text-color;
+    background: @white;
+  }
+
+  span[role='img'] {
+    font-size: 16px;
+  }
+}
+
+.brand-card-background {
+  background: #fef0e5;
+}
