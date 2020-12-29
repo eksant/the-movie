@@ -45,5 +45,6 @@ Displays a page list of films and movie details, filter films based on the relea
 
 - Unit Testing
 
+![image](https://user-images.githubusercontent.com/32409305/103299550-61d1f480-4a2f-11eb-9f9d-84373f4ff117.png)
 
 <em>Made With</em> ❤️ 

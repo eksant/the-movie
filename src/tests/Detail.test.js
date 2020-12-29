@@ -1,7 +1,17 @@
 import React from 'react'
 import Detail from '@/pages/Home/detail'
-import { render, unmountComponentAtNode } from 'react-dom'
 import { act } from 'react-dom/test-utils'
+import { render, unmountComponentAtNode } from 'react-dom'
+
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
+    }
+  }
 
 let container = null
 beforeEach(() => {
@@ -15,7 +25,7 @@ afterEach(() => {
   container = null
 })
 
-it('Renders movie data', async () => {
+it('Renders detail movie', async () => {
   const fakeData = {
     adult: false,
     backdrop_path: '/srYya1ZlI97Au4jUYAktDe3avyA.jpg',
@@ -41,19 +51,18 @@ it('Renders movie data', async () => {
     vote_count: 1349,
   }
 
-  // jest.spyOn(global, 'fetch').mockImplementation(() =>
-  //   Promise.resolve({
-  //     json: () => Promise.resolve(fakeData),
-  //   })
-  // )
-
-  // console.log('==Detail', Detail)
+  jest.spyOn(global, 'fetch').mockImplementation(() =>
+    Promise.resolve({
+      json: () => Promise.resolve(fakeData),
+    })
+  )
 
   await act(async () => {
     render(<Detail data={fakeData} />, container)
   })
 
-  // expect(container.querySelector('summary').textContent).toBe(fakeData.id)
+  expect(container.querySelector('h1').textContent).toBe(fakeData.original_title)
+  expect(container.querySelector('img').textContent).toBe('')
   expect(container.textContent).toContain(fakeData.overview)
 
   global.fetch.mockRestore()

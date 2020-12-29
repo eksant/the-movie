@@ -1,9 +1,18 @@
 import { render, screen } from '@testing-library/react'
 import App from '../App'
 
-test('renders learn react link', () => {
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
+    }
+  }
+
+test('Renders title movie', () => {
   render(<App />)
-  const linkElement = screen.getByText(/Popular Movies/i)
-  console.log('==linkElement', linkElement)
-  // expect(linkElement).toBeInTheDocument()
+  const titleElement = screen.getByText(/Popular Movies/i)
+  expect(titleElement).toBeInTheDocument()
 })
