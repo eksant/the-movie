@@ -22,7 +22,19 @@ import {
   Typography,
 } from 'antd'
 
-export default function ListPage({ path, loading, pagination, sorted, onLoadMore, onFilter, onSetFavorite }) {
+export default function ListPage({
+  form,
+  path,
+  sorted,
+  loading,
+  pagination,
+  periodDate,
+  onReset,
+  onFilter,
+  onLoadMore,
+  onSetFavorite,
+}) {
+  const filter = { sorted, release_dates: periodDate }
   const loadMore =
     !loading && pagination && pagination.hasMore ? (
       <div
@@ -46,7 +58,7 @@ export default function ListPage({ path, loading, pagination, sorted, onLoadMore
       </Col>
 
       <Col xl={6} style={{ marginBottom: 16 }}>
-        <Form layout="inline" initialValues={{ sorted }} onFinish={onFilter}>
+        <Form layout="inline" form={form} initialValues={filter} onFinish={onFilter}>
           <Card size="small" title="Sort Results By" style={{ width: '100%' }}>
             <Form.Item name="sorted">
               <Select
@@ -69,10 +81,13 @@ export default function ListPage({ path, loading, pagination, sorted, onLoadMore
 
           <Card size="small" title="Primary Release Dates" style={{ margin: '12px 0', width: '100%' }}>
             <Form.Item name="release_dates">
-              <DatePicker.RangePicker format={config.app.formatDate} />
+              <DatePicker.RangePicker format={config.app.formatDate} style={{ width: '100%' }} />
             </Form.Item>
           </Card>
 
+          <Button type="default" onClick={onReset} disabled={loading} style={{ width: '100%' }}>
+            Reset
+          </Button>
           <Button type="primary" htmlType="submit" disabled={loading} style={{ margin: '24px 0', width: '100%' }}>
             Search
           </Button>
@@ -101,7 +116,9 @@ export default function ListPage({ path, loading, pagination, sorted, onLoadMore
             loadMore={loadMore}
             dataSource={pagination && pagination.results}
             renderItem={item => {
-              const title = `${item.title} (${moment(item.release_date).format(config.app.formatYear)})`
+              const title = `${item.title} ${
+                item.release_date ? '(' + moment(item.release_date).format(config.app.formatYear) + ')' : ''
+              }`
               const labelGenres = item.genre_ids.map(id => {
                 const genre = pagination && pagination.genres && pagination.genres.filter(item => item.id === id)
                 return <Tag key={id}>{genre && genre[0].name}</Tag>
