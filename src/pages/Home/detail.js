@@ -5,6 +5,7 @@ import { util } from '@/utils'
 import { PageLoading } from '@/components'
 import { Row, Col, Typography, Image, Button, Progress, Space, Tooltip, Statistic } from 'antd'
 import {
+  HeartFilled,
   TagsOutlined,
   StarOutlined,
   LikeOutlined,
@@ -13,7 +14,7 @@ import {
   FieldTimeOutlined,
 } from '@ant-design/icons'
 
-export default function Detail({ loading, data, onBack }) {
+export default function Detail({ loading, data, onBack, onSetFavorite }) {
   const labelGenres = data && data.genres ? data.genres.map(genre => genre.name).join(', ') : 'Unknow Genre'
   const labelProductions =
     data && data.production_companies
@@ -64,7 +65,20 @@ export default function Detail({ loading, data, onBack }) {
             <Typography.Title level={4}>
               <Space>
                 <Tooltip title="Click for loving this movie">
-                  <Button type="dashed" shape="circle" size="large" icon={<HeartOutlined />} danger />
+                  <Button
+                    danger
+                    type="text"
+                    size="large"
+                    shape="circle"
+                    onClick={() => onSetFavorite(data)}
+                    icon={
+                      data && data.my_fav ? (
+                        <HeartFilled style={{ fontSize: '32px' }} />
+                      ) : (
+                        <HeartOutlined style={{ fontSize: '32px' }} />
+                      )
+                    }
+                  />
                 </Tooltip>
                 <Progress
                   width={40}

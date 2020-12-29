@@ -1,25 +1,23 @@
 import config from '../config'
-import util from './util'
+// import util from './util'
 
 const storeName = config.app.storeKey
 
 function use(key, value) {
   const result = get(key)
-
-  if (!result || result === undefined) {
-    return set(key, value)
-  }
-
+  if (!result || result === undefined) return set(key, value)
   return result
 }
 
 function get(key) {
   const result = localStorage.getItem(`${storeName}-${key}`)
-  return util.isObject(result) ? JSON.parse(result) : result
+  return typeof result === 'string' ? result : JSON.parse(result)
+  // return util.isObject(result) ? JSON.parse(result) : result
 }
 
 function set(key, data) {
-  data = util.isObject(data) ? JSON.stringify(data) : data
+  // data = util.isObject(data) ? JSON.stringify(data) : data
+  data = typeof data === 'string' ? data : JSON.stringify(data)
   localStorage.setItem(`${storeName}-${key}`, data)
   return get(key)
 }

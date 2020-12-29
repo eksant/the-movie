@@ -9,7 +9,7 @@ export default function Index(props) {
   const { view, path, match, history } = props
   const [filtered, setFiltered] = useState(null)
   const [sorted, setSorted] = useState('popularity.desc')
-  const { loading, data, pagination, onSetPagination, onMorePagination, onGetDatas, onSetData } = useData()
+  const { loading, data, pagination, onSetPagination, onMorePagination, onGetDatas, onSetData, onSetFavs } = useData()
 
   const onBack = () => {
     history.push('/')
@@ -43,6 +43,21 @@ export default function Index(props) {
     onLoadPage(1, parseFiltered, sorted)
   }
 
+  const onSetFavorite = val => {
+    const payload = {
+      id: val.id,
+      original_title: val.original_title,
+      overview: val.overview,
+      genre_ids: val.genre_ids,
+      popularity: val.popularity,
+      release_date: val.release_date,
+      poster_path: val.poster_path,
+      my_fav: true,
+      my_fav_created: moment().format(),
+    }
+    onSetFavs(payload)
+  }
+
   useEffect(() => {
     function init() {
       switch (view) {
@@ -65,8 +80,9 @@ export default function Index(props) {
       pagination={pagination}
       onFilter={onFilter}
       onLoadMore={onLoadMore}
+      onSetFavorite={onSetFavorite}
     />
   ) : (
-    <DetailPage loading={loading} data={data} onBack={onBack} />
+    <DetailPage loading={loading} data={data} onBack={onBack} onSetFavorite={onSetFavorite} />
   )
 }
